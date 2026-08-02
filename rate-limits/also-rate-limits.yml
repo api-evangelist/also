@@ -1,0 +1,28 @@
+generated: '2026-08-02'
+method: searched
+source: https://ridealso.com/agents.md + live probe of https://ridealso.com/api/2026-07/graphql.json
+rate_limits:
+- api: ALSO Storefront GraphQL API
+  style: query-cost
+  limit_count: null
+  window: null
+  signal_field: extensions.cost.requestedQueryCost
+  observed:
+    query: '{products(first:1){edges{node{id title}}}}'
+    requestedQueryCost: 3
+  headers: []
+  note: Cost is returned on every response, but ALSO/Shopify did not return
+    throttleStatus (maximumAvailable / currentlyAvailable / restoreRate) to an
+    unauthenticated caller, so no numeric ceiling could be observed.
+- api: ALSO UCP Commerce MCP API
+  style: per-ip
+  limit_count: null
+  window: null
+  signal_status: 429
+  guidance: Back off on 429 responses.
+  source: https://ridealso.com/agents.md
+- api: ALSO Storefront JSON API
+  style: unpublished
+  limit_count: null
+  note: No rate-limit headers were observed on /products.json, /collections.json or
+    /cart.js.

@@ -1,0 +1,115 @@
+generated: '2026-08-02'
+method: derived
+source: graphql/also-storefront-2026-07.graphql + openapi/also-storefront-json-openapi.yml
+description: Entity-relationship graph derived from the live ALSO Storefront GraphQL
+  schema (captured by open introspection on 2026-08-02) and cross-checked against the
+  JSON storefront payloads. Every type and field name below appears verbatim in the
+  captured schema; Relay Connection wrappers are collapsed to the node type.
+totals:
+  graphql_types: 422
+  root_queries: 35
+  root_mutations: 41
+entities:
+- name: Shop
+  root_query: shop
+  description: Store-level identity, policies and payment settings. Observed name
+    "ALSO", primary domain ridealso.com.
+  fields: [name, description, primaryDomain, paymentSettings, shipsToCountries, brand]
+- name: Product
+  root_query: [product, productByHandle, products, productRecommendations]
+  rest: openapi/also-storefront-json-openapi.yml#listProducts
+  id_form: 'gid://shopify/Product/{id}; JSON API exposes a numeric id and a handle slug'
+  fields: [id, title, handle, description, descriptionHtml, vendor, productType, tags,
+    availableForSale, publishedAt, createdAt, updatedAt]
+  observed_product_types: [Vehicle, 'Module: Top Frame', Clothing, Hats]
+- name: ProductVariant
+  description: A purchasable SKU of a product.
+  fields: [id, title, sku, availableForSale, price, compareAtPrice, quantityAvailable,
+    requiresShipping, weight, selectedOptions]
+- name: ProductOption
+  fields: [name, values, optionValues]
+- name: Collection
+  root_query: [collection, collectionByHandle, collections]
+  rest: openapi/also-storefront-json-openapi.yml#listCollections
+  fields: [id, title, handle, description, image, updatedAt]
+  observed: 'gear (All Gear, 20 products)'
+- name: Cart
+  root_query: cart
+  rest: openapi/also-storefront-json-openapi.yml#getCart
+  fields: [id, checkoutUrl, totalQuantity, note, createdAt, updatedAt]
+- name: CartLine
+  fields: [id, quantity, cost, attributes]
+- name: Order
+  description: Reachable only through an authenticated customer access token.
+  fields: [id, name, orderNumber, processedAt, financialStatus, fulfillmentStatus,
+    email, phone]
+- name: Customer
+  fields: [id, email, firstName, lastName, phone, acceptsMarketing, createdAt]
+- name: Blog
+  root_query: [blog, blogByHandle, blogs]
+  fields: [id, title, handle]
+- name: Article
+  root_query: [article, articles]
+  fields: [id, title, handle, content, contentHtml, publishedAt, excerpt]
+- name: Page
+  root_query: [page, pageByHandle, pages]
+  fields: [id, title, handle, body, bodyHtml]
+- name: Metaobject
+  root_query: [metaobject, metaobjects]
+  fields: [id, handle, type, updatedAt]
+- name: SellingPlanGroup
+  fields: [name, appName, options]
+- name: Metafield
+  fields: [id, namespace, key, value, type, description]
+relationships:
+- {from: Product, to: ProductVariant, kind: has_many, via: variants}
+- {from: Product, to: ProductVariant, kind: has_one, via: selectedOrFirstAvailableVariant}
+- {from: Product, to: ProductOption, kind: has_many, via: options}
+- {from: Product, to: Collection, kind: has_many, via: collections}
+- {from: Product, to: Image, kind: has_many, via: images}
+- {from: Product, to: Image, kind: has_one, via: featuredImage}
+- {from: Product, to: Media, kind: has_many, via: media}
+- {from: Product, to: SellingPlanGroup, kind: has_many, via: sellingPlanGroups}
+- {from: Product, to: TaxonomyCategory, kind: has_one, via: category}
+- {from: Product, to: ProductPriceRange, kind: has_one, via: priceRange}
+- {from: Product, to: SEO, kind: has_one, via: seo}
+- {from: ProductVariant, to: Product, kind: belongs_to, via: product}
+- {from: ProductVariant, to: Image, kind: has_one, via: image}
+- {from: ProductVariant, to: MoneyV2, kind: has_one, via: price}
+- {from: ProductVariant, to: SelectedOption, kind: has_many, via: selectedOptions}
+- {from: ProductVariant, to: StoreAvailability, kind: has_many, via: storeAvailability}
+- {from: ProductVariant, to: QuantityRule, kind: has_one, via: quantityRule}
+- {from: ProductVariant, to: SellingPlanAllocation, kind: has_many, via: sellingPlanAllocations}
+- {from: Collection, to: Product, kind: has_many, via: products}
+- {from: Collection, to: Image, kind: has_one, via: image}
+- {from: Cart, to: CartLine, kind: has_many, via: lines}
+- {from: Cart, to: CartBuyerIdentity, kind: has_one, via: buyerIdentity}
+- {from: Cart, to: CartCost, kind: has_one, via: cost}
+- {from: Cart, to: CartDeliveryGroup, kind: has_many, via: deliveryGroups}
+- {from: Cart, to: CartDiscountCode, kind: has_many, via: discountCodes}
+- {from: Cart, to: AppliedGiftCard, kind: has_many, via: appliedGiftCards}
+- {from: CartLine, to: Merchandise, kind: has_one, via: merchandise, note: union resolving
+    to ProductVariant}
+- {from: CartLine, to: SellingPlanAllocation, kind: has_one, via: sellingPlanAllocation}
+- {from: CartLine, to: CartLineCost, kind: has_one, via: cost}
+- {from: Customer, to: Order, kind: has_many, via: orders}
+- {from: Customer, to: MailingAddress, kind: has_many, via: addresses}
+- {from: Customer, to: MailingAddress, kind: has_one, via: defaultAddress}
+- {from: Customer, to: SocialLoginProvider, kind: has_many, via: socialLoginProvider}
+- {from: Order, to: OrderLineItem, kind: has_many, via: lineItems}
+- {from: Order, to: MailingAddress, kind: has_one, via: shippingAddress}
+- {from: Order, to: MailingAddress, kind: has_one, via: billingAddress}
+- {from: Order, to: Fulfillment, kind: has_many, via: successfulFulfillments}
+- {from: Order, to: DiscountApplication, kind: has_many, via: discountApplications}
+- {from: Blog, to: Article, kind: has_many, via: articles}
+- {from: Article, to: Blog, kind: belongs_to, via: blog}
+- {from: Article, to: ArticleAuthor, kind: has_one, via: authorV2}
+- {from: Article, to: Comment, kind: has_many, via: comments}
+- {from: Shop, to: Domain, kind: has_one, via: primaryDomain}
+- {from: Shop, to: PaymentSettings, kind: has_one, via: paymentSettings}
+- {from: Shop, to: ShopPolicy, kind: has_many, via: [privacyPolicy, termsOfService,
+      refundPolicy, shippingPolicy, termsOfSale, legalNotice]}
+- {from: Shop, to: Brand, kind: has_one, via: brand}
+- {from: Metafield, to: MetafieldParentResource, kind: belongs_to, via: parentResource}
+metafield_bearing_entities: [Product, ProductVariant, Collection, Cart, Customer, Order,
+  Article, Blog, Page, Shop, Location, Market]

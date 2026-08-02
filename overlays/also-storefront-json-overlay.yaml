@@ -1,0 +1,58 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the ALSO Storefront JSON API
+  version: 1.0.0
+extends: openapi/also-storefront-json-openapi.yml
+x-generated: '2026-08-02'
+x-method: generated
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: also
+    x-apievangelist-enriched: '2026-08-02'
+    x-apievangelist-contract-surfaces:
+      graphql: graphql/also-storefront-2026-07.graphql
+      mcp: mcp/also-mcp.yml
+      crosswalk: mcp/also-tool-crosswalk.yml
+    x-apievangelist-note: ALSO publishes no OpenAPI. This description was generated
+      by API Evangelist from the endpoints ALSO advertises to agents in its own
+      /agents.md, with every path probed live.
+- target: $.paths['/products.json'].get
+  update:
+    x-agentic-access:
+      action-class: connected
+      consequence: read
+      token: {ttl-max: 3600}
+- target: $.paths['/products/{handle}.json'].get
+  update:
+    x-agentic-access:
+      action-class: connected
+      consequence: read
+      token: {ttl-max: 3600}
+- target: $.paths['/collections.json'].get
+  update:
+    x-agentic-access:
+      action-class: connected
+      consequence: read
+      token: {ttl-max: 3600}
+- target: $.paths['/collections/{handle}/products.json'].get
+  update:
+    x-agentic-access:
+      action-class: connected
+      consequence: read
+      token: {ttl-max: 3600}
+- target: $.paths['/cart.js'].get
+  update:
+    x-agentic-access:
+      action-class: connected
+      consequence: read
+      token: {ttl-max: 900}
+    x-apievangelist-note: Session-scoped; returns the cart bound to the caller's cookie.
+- target: $.paths['/search'].get
+  update:
+    x-agentic-access:
+      action-class: connected
+      consequence: read
+      token: {ttl-max: 3600}
+    x-apievangelist-note: Returns HTML, not JSON. Prefer the GraphQL `search` or
+      `predictiveSearch` query for machine consumption.

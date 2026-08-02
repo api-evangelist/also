@@ -1,0 +1,97 @@
+generated: '2026-08-02'
+method: derived
+source: graphql/also-storefront-2026-07.graphql + https://ridealso.com/agents.md + https://ucp.dev/2026-04-08/services/shopping/mcp.openrpc.json
+docs: https://ridealso.com/agents.md
+authentication:
+  style: none for reads; OAuth2/OIDC for customer accounts; UCP-Agent profile URI for
+    the MCP endpoint
+  see: authentication/also-authentication.yml
+idempotency:
+  supported: true
+  surfaces:
+  - surface: mcp
+    mechanism: meta.idempotency-key
+    header: Idempotency-Key
+    format: uuid
+    scope: per UCP request (create_cart / create_checkout / update_checkout / complete_checkout)
+    description: 'UCP OpenRPC meta schema: "Unique key for retry safety. Maps to HTTP
+      Idempotency-Key header."'
+    source: https://ucp.dev/2026-04-08/services/shopping/mcp.openrpc.json
+  - surface: graphql
+    mechanism: idempotencyKey argument
+    required: true
+    operations: [shopPayPaymentRequestSessionSubmit]
+    error_code: IDEMPOTENCY_KEY_ALREADY_USED
+    description: The idempotencyKey argument ensures the payment transaction occurs
+      only once, preventing duplicate charges.
+    source: graphql/also-storefront-2026-07.graphql
+  retention: not published
+pagination:
+  graphql:
+    style: relay-cursor-connection
+    request_params: [first, last, after, before, reverse, sortKey]
+    response_fields: [edges, node, cursor, pageInfo.hasNextPage, pageInfo.hasPreviousPage,
+      pageInfo.startCursor, pageInfo.endCursor]
+  rest:
+    style: page-and-limit
+    request_params: [limit, page]
+    max_limit: 250
+    response_fields: []
+    note: The JSON storefront endpoints return a bare array with no pagination envelope.
+filtering_and_search:
+  graphql: 'query: String on products/collections/search/predictiveSearch, plus typed
+    ProductFilter inputs on collection.products'
+  rest: /search?q={query}&type=product
+error_envelope:
+  graphql:
+    transport_errors: top-level `errors[]` array with message/locations/path/extensions
+    domain_errors: per-mutation `userErrors[]` / typed error payloads (CartUserError,
+      CustomerUserError, MetafieldsSetUserError) carrying `code`, `field`, `message`
+    catalog: errors/also-problem-types.yml
+  mcp:
+    style: JSON-RPC 2.0 error object
+    observed: '{"jsonrpc":"2.0","id":1,"error":{"code":-32001,"message":"UCP discovery
+      failed","data":{"code":"invalid_profile_url","content":"...","continue_url":"..."}}}'
+    schema: https://ucp.dev/2026-04-08/schemas/shopping/types/error_response.json
+  rest:
+    style: HTTP status only; 404 returns an empty JSON body
+  rfc9457: false
+rate_limiting:
+  graphql:
+    style: query-cost
+    response_field: extensions.cost.requestedQueryCost
+    observed_example: 3
+    headers: none observed
+  mcp:
+    style: per-IP
+    signal: HTTP 429
+    guidance: 'agents.md: "Respect rate limits. The MCP endpoint is rate-limited per
+      IP. Back off on 429 responses."'
+  see: rate-limits/also-rate-limits.yml
+versioning:
+  graphql:
+    scheme: dated URL path segment (/api/{YYYY-MM}/graphql.json)
+    current: '2026-07'
+    discovery_query: publicApiVersions
+  ucp:
+    scheme: dated version identifier negotiated per request
+    current: '2026-04-08'
+  see: lifecycle/also-lifecycle.yml
+metadata:
+  graphql: metafields / metaobjects on Product, Collection, Cart, Customer, Article,
+    Page and Shop; cartMetafieldsSet / cartMetafieldDelete mutations
+  mcp: 'meta object on every UCP method (additionalProperties: true)'
+request_tracing:
+  request_id_header: none observed
+  note: No X-Request-Id or equivalent correlation header was returned by any probed
+    endpoint.
+buyer_consent:
+  required_for: checkout completion
+  statement: Agents must not complete payment without explicit buyer consent.
+  source: https://ridealso.com/agents.md
+cross_links:
+  errors: errors/also-problem-types.yml
+  lifecycle: lifecycle/also-lifecycle.yml
+  authentication: authentication/also-authentication.yml
+  rate_limits: rate-limits/also-rate-limits.yml
+  scopes: scopes/also-scopes.yml

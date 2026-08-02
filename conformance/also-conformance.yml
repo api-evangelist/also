@@ -1,0 +1,100 @@
+generated: '2026-08-02'
+method: derived
+source: live probes of ridealso.com discovery + graphql/also-storefront-2026-07.graphql
+  + well-known/also-ucp.json
+standards:
+- id: ucp-2026-04-08
+  name: Universal Commerce Protocol (Shopping service)
+  conforms: true
+  evidence: /.well-known/ucp returns a 200 profile declaring dev.ucp.shopping over MCP
+    transport, versions 2026-04-08 and 2026-01-23, and seven capabilities.
+  spec: https://ucp.dev/2026-04-08/specification/overview/
+- id: mcp
+  name: Model Context Protocol
+  conforms: true
+  evidence: UCP shopping service is exposed over MCP/JSON-RPC 2.0 at /api/ucp/mcp;
+    a JSON-RPC 2.0 error object was returned to an unauthenticated tools/list call.
+- id: graphql
+  name: GraphQL (June 2018 spec)
+  conforms: true
+  evidence: Full __schema introspection succeeded unauthenticated; 422 types, 35 queries,
+    41 mutations.
+- id: graphql-cursor-connections
+  name: GraphQL Cursor Connections (Relay)
+  conforms: true
+  evidence: Connection/edge/node/PageInfo types with first/last/after/before arguments
+    throughout the Storefront schema.
+- id: oidc-discovery
+  name: OpenID Connect Discovery 1.0
+  conforms: true
+  evidence: /.well-known/openid-configuration returns 200 with issuer, authorization_endpoint,
+    token_endpoint, jwks_uri, id_token_signing_alg_values_supported RS256.
+- id: rfc8414-oauth-authorization-server-metadata
+  name: RFC 8414 OAuth 2.0 Authorization Server Metadata
+  conforms: true
+  evidence: /.well-known/oauth-authorization-server returns 200 with the same metadata
+    document.
+- id: oauth2-pkce
+  name: OAuth 2.0 PKCE (RFC 7636)
+  conforms: true
+  evidence: code_challenge_methods_supported includes S256.
+- id: rfc7523-jwt-bearer
+  name: OAuth 2.0 JWT Bearer grant (RFC 7523)
+  conforms: true
+  evidence: grant_types_supported includes urn:ietf:params:oauth:grant-type:jwt-bearer.
+- id: rfc8615-well-known
+  name: RFC 8615 well-known URIs
+  conforms: true
+  evidence: /.well-known/ucp, /.well-known/openid-configuration, /.well-known/oauth-authorization-server,
+    /.well-known/apple-app-site-association and /.well-known/assetlinks.json all return
+    200.
+- id: llmstxt
+  name: llms.txt
+  conforms: true
+  evidence: /llms.txt returns 200 text/markdown; a distinct /agents.md is also served
+    and is listed in a dedicated /sitemap_agentic_discovery.xml.
+- id: idempotency-key
+  name: Idempotency-Key HTTP field
+  conforms: true
+  evidence: UCP meta.idempotency-key maps to the HTTP Idempotency-Key header; the
+    GraphQL shopPayPaymentRequestSessionSubmit mutation requires an idempotencyKey
+    argument and can return IDEMPOTENCY_KEY_ALREADY_USED.
+- id: sitemaps-0.9
+  name: sitemaps.org protocol 0.9
+  conforms: true
+  evidence: /sitemap.xml returns a valid sitemapindex with product, page, collection,
+    blog, metaobject and agentic-discovery children.
+- id: rfc9457-problem-details
+  name: RFC 9457 Problem Details
+  conforms: false
+  evidence: No application/problem+json responses were observed on any surface.
+- id: openapi
+  name: OpenAPI
+  conforms: false
+  evidence: No OpenAPI or Swagger document is published on any ALSO host; /openapi.json,
+    /openapi.yaml, /swagger.json, /api-docs, /docs and /redoc all returned 404.
+- id: asyncapi
+  name: AsyncAPI
+  conforms: false
+  evidence: No event, streaming or webhook surface is published to the public.
+- id: a2a
+  name: A2A Agent Card
+  conforms: false
+  evidence: /.well-known/agent-card.json and /.well-known/agent.json returned 404 on
+    ridealso.com, www.ridealso.com, idp.ridealso.com and ride-also.myshopify.com.
+- id: rfc9116-security-txt
+  name: RFC 9116 security.txt
+  conforms: false
+  evidence: /.well-known/security.txt returned 404.
+- id: dnssec
+  name: DNSSEC
+  conforms: false
+  evidence: 'security/also-domain-security.yml: dnssec false for ridealso.com.'
+- id: caa
+  name: DNS CAA records
+  conforms: false
+  evidence: No CAA records observed for ridealso.com.
+compliance_program:
+  published: false
+  note: No trust center, certification list or compliance page was found; probes of
+    trust./security. subdomains and /trust, /security, /compliance paths all missed.

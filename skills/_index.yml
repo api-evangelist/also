@@ -1,0 +1,22 @@
+generated: '2026-08-02'
+method: generated
+source: graphql/also-storefront-2026-07.graphql + openapi/also-storefront-json-openapi.yml
+  + mcp/also-mcp.yml
+note: ALSO publishes no skills or AGENTS.md of its own; it publishes /agents.md and
+  /llms.txt, which are captured verbatim under llms/. These skills are API Evangelist
+  generated and every operation name is verified against the captured contracts.
+skills:
+- file: also-browse-catalog.md
+  name: Browse the ALSO catalog
+  api: openapi/also-storefront-json-openapi.yml
+  operations: [listProducts, getProduct, listCollections, listCollectionProducts, searchStorefront]
+- file: also-build-cart-and-checkout.md
+  name: Build a cart and hand off to checkout on ALSO
+  api: graphql/also-storefront-2026-07.graphql
+  operations: [cartCreate, cartLinesAdd, cartBuyerIdentityUpdate, cartDeliveryAddressesAdd,
+    cartSelectedDeliveryOptionsUpdate, cartPrepareForCompletion, cartSubmitForCompletion]
+- file: also-agentic-purchase-ucp.md
+  name: Buy from ALSO as an agent over UCP/MCP
+  api: mcp/also-mcp.yml
+  operations: [search_catalog, lookup_catalog, get_product, create_cart, update_cart,
+    create_checkout, update_checkout, complete_checkout, get_order]

@@ -1,0 +1,35 @@
+generated: '2026-08-02'
+method: searched
+source: https://ridealso.com/pages/ui-components
+description: ALSO publishes its front-end design system on its own storefront as a
+  public, browsable component gallery. It is a first-party web design system rendered
+  on ridealso.com - not a distributable component library, npm package or embeddable
+  third-party widget set. No loader script, CDN bundle or install path is published.
+url: https://ridealso.com/pages/ui-components
+distributable: false
+package: null
+families:
+- name: Color profiles
+  components: [Light, Dark, Ube, Mutant, GiGi, Tales, Sonic, Tan, Ube-900]
+- name: Buttons
+  components: [Primary, Secondary, Tertiary, Link, Menu Link]
+  variants: [Small, Medium, Large, icon variants]
+- name: Overlays
+  components: [Mini modal, Right modal, Popover (right/bottom/top/left)]
+- name: Feedback
+  components: [Toast error, Toast warning, Toast success, Toast info]
+- name: Typography
+  components: [Display, Heading, Title, Body, Numeric]
+- name: Navigation
+  components: [Breadcrumbs, Linklists, Tabs]
+- name: Content
+  components: [Accordion, Themed accordion, Vertical card, Horizontal card, Marketing
+      tile, Hero image, Carousel]
+- name: Commerce
+  components: [Product grid, Account authentication form, Shopping cart interface]
+- name: Icons
+  components: [Arrows, Social icons, Check marks]
+x-evidence:
+  fetched: '2026-08-02'
+  url: https://ridealso.com/pages/ui-components
+  http_status: 200

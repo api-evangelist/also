@@ -1,0 +1,57 @@
+generated: '2026-08-02'
+method: searched
+source: live probes of https://ridealso.com/.well-known/* on 2026-08-02
+host: https://ridealso.com
+documents:
+- path: /.well-known/ucp
+  description: Universal Commerce Protocol merchant discovery profile - declares the
+    dev.ucp.shopping service over MCP transport, supported UCP versions, capabilities
+    (checkout, cart, fulfillment, discount, order, catalog.search, catalog.lookup) and
+    payment handlers (Google Pay, Shopify card, Shop Pay).
+  status: 200
+  content_type: application/json
+  file: also-ucp.json
+- path: /.well-known/openid-configuration
+  description: OpenID Connect discovery for Shopify customer accounts (issuer https://shopify.com/authentication/74758783200).
+  status: 200
+  content_type: application/json
+  file: also-openid-configuration.json
+- path: /.well-known/oauth-authorization-server
+  description: RFC 8414 authorization server metadata; served identically to the OIDC
+    discovery document.
+  status: 200
+  content_type: application/json
+  file: also-oauth-authorization-server.json
+- path: /.well-known/apple-app-site-association
+  description: Present but empty - no associated iOS apps, app clips or web credentials.
+  status: 200
+  content_type: application/json
+- path: /.well-known/assetlinks.json
+  description: Present but an empty array - no associated Android apps.
+  status: 200
+  content_type: application/json
+- path: /.well-known/security.txt
+  status: 404
+- path: /.well-known/api-catalog
+  status: 404
+- path: /.well-known/ai-plugin.json
+  status: 404
+- path: /.well-known/agent-card.json
+  status: 404
+- path: /.well-known/agent.json
+  status: 404
+other_hosts:
+- host: https://idp.ridealso.com
+  note: AWS Cognito-backed identity provider on ALSO's own domain, used for Continue
+    with Google / Continue with Apple on the storefront account login.
+  documents:
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/jwks.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+agent_discovery:
+- {path: /llms.txt, status: 200, file: ../llms/also-llms.txt}
+- {path: /agents.md, status: 200, file: ../llms/also-agents.md}
+- {path: /sitemap_agentic_discovery.xml, status: 200, note: sitemap that lists /agents.md
+    for agent crawlers}

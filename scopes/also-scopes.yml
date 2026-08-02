@@ -1,0 +1,50 @@
+generated: '2026-08-02'
+method: searched
+source: https://ridealso.com/.well-known/openid-configuration
+docs: https://ridealso.com/.well-known/oauth-authorization-server
+note: Scopes are published live in ALSO's own OIDC / RFC 8414 discovery documents at
+  ridealso.com. No OpenAPI on this provider declares oauth2 security schemes, so these
+  were harvested from the discovery surface rather than derived from a spec.
+schemes:
+- name: shopify-customer-accounts
+  source: well-known/also-openid-configuration.json
+  issuer: https://shopify.com/authentication/74758783200
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://shopify.com/authentication/74758783200/oauth/authorize
+    tokenUrl: https://shopify.com/authentication/74758783200/oauth/token
+  - flow: refreshToken
+    tokenUrl: https://shopify.com/authentication/74758783200/oauth/token
+  - flow: 'urn:ietf:params:oauth:grant-type:jwt-bearer'
+    tokenUrl: https://shopify.com/authentication/74758783200/oauth/token
+- name: also-idp
+  source: 'https://ridealso.com/ (login links)'
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://idp.ridealso.com/oauth2/authorize
+    tokenUrl: https://idp.ridealso.com/oauth2/token
+scopes:
+- scope: openid
+  description: Issue an OpenID Connect ID token for the signed-in customer.
+  flows: [authorizationCode]
+  sources: [well-known/also-openid-configuration.json, 'https://ridealso.com/']
+- scope: email
+  description: Release the customer's email address and email_verified claim.
+  flows: [authorizationCode]
+  sources: [well-known/also-openid-configuration.json, 'https://ridealso.com/']
+- scope: profile
+  description: Release basic profile claims. Requested by the ALSO idp.ridealso.com
+    social sign-in links.
+  flows: [authorizationCode]
+  sources: ['https://ridealso.com/']
+- scope: customer-account-api:full
+  description: Full access to the Shopify Customer Account API on behalf of the signed-in
+    customer - orders, addresses, profile and subscriptions.
+  flows: [authorizationCode]
+  sources: [well-known/also-openid-configuration.json]
+- scope: customer-account-mcp-api:full
+  description: Full access to the Customer Account MCP API - the agent-facing projection
+    of the customer account surface. Notable as an explicitly agent-scoped OAuth scope.
+  flows: [authorizationCode]
+  sources: [well-known/also-openid-configuration.json]
+claims_supported: [iss, sub, aud, exp, iat, nonce, sid, email, email_verified]

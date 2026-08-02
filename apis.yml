@@ -1,23 +1,174 @@
 aid: also
 name: Also
-description: 'Also is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'ALSO (Also, Inc.) is a Palo Alto, California electric micromobility company
+  spun out of Rivian in March 2025, building small electric vehicles for moving people
+  and goods, both driven and autonomous. Its flagship product is the TM-B, a modular
+  Class 3 electric bike with a swappable top frame and the in-house DreamRide software-defined
+  drive system, alongside a delivery quad for logistics fleets and the Alpha Wave helmet.
+  ALSO reached a $1B valuation in 2026 on a $200M round led by Greenoaks and announced
+  an autonomous-delivery partnership with DoorDash. Its public digital surface is a
+  Shopify-hosted commerce platform at ridealso.com that exposes an open Storefront
+  GraphQL API (35 queries / 41 mutations), the Shopify JSON storefront endpoints, and
+  a Universal Commerce Protocol (UCP) MCP endpoint for agent-driven shopping and checkout,
+  all advertised in the company''s own published agents.md / llms.txt.'
+image: https://cdn.shopify.com/s/files/1/0747/5878/3200/files/Social_Share.jpg?v=1760978876
 url: https://raw.githubusercontent.com/api-evangelist/also/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
+x-tier: profiled
+x-tier-reason: enrichment
 specificationVersion: '0.20'
 created: '2026-08-02'
 modified: '2026-08-02'
 tags:
 - Company
-apis: []
+- Micromobility
+- Electric Vehicles
+- Transportation
+- E-Commerce
+- Consumer Hardware
+- Agentic Commerce
+- Logistics
+- Delivery
+apis:
+- name: ALSO Storefront GraphQL API
+  description: The Shopify Storefront GraphQL API served on ALSO's own domain. Open,
+    unauthenticated introspection was confirmed; 35 root queries (products, collections,
+    cart, search, blogs, shop, localization) and 41 mutations (cart lifecycle, customer
+    accounts, Shop Pay payment request sessions) are live. Dated API versions are published
+    via the publicApiVersions query.
+  humanURL: https://ridealso.com/agents.md
+  baseURL: https://ridealso.com/api/2026-07/graphql.json
+  tags:
+  - GraphQL
+  - E-Commerce
+  - Catalog
+  - Cart
+  - Checkout
+  properties:
+  - type: GraphQL
+    url: graphql/also-storefront-2026-07.graphql
+  - type: Documentation
+    url: https://shopify.dev/docs/api/storefront
+  - type: DataModel
+    url: data-model/also-data-model.yml
+  - type: ErrorCatalog
+    url: errors/also-problem-types.yml
+- name: ALSO UCP Commerce MCP API
+  description: ALSO's Universal Commerce Protocol (UCP) endpoint, advertised in its
+    own /.well-known/ucp discovery profile and /agents.md. Exposes the dev.ucp.shopping
+    service over MCP transport for agent-driven catalog search, cart, checkout, fulfillment,
+    discount and order capabilities, with Google Pay, Shopify card and Shop Pay payment
+    handlers. tools/list is gated on a UCP-Agent profile URI.
+  humanURL: https://ridealso.com/agents.md
+  baseURL: https://ridealso.com/api/ucp/mcp
+  tags:
+  - MCP
+  - Agentic Commerce
+  - UCP
+  - Checkout
+  properties:
+  - type: MCPServer
+    url: mcp/also-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/also-tool-crosswalk.yml
+  - type: Documentation
+    url: https://ridealso.com/agents.md
+- name: ALSO Storefront JSON API
+  description: The read-only JSON storefront endpoints ALSO documents for agents in
+    its own agents.md - product and collection listings, per-product and per-collection
+    JSON, storefront search, and the live cart resource. Every path in the captured
+    OpenAPI was probed live against ridealso.com.
+  humanURL: https://ridealso.com/agents.md
+  baseURL: https://ridealso.com
+  tags:
+  - REST
+  - JSON
+  - Catalog
+  - E-Commerce
+  properties:
+  - type: OpenAPI
+    url: openapi/also-storefront-json-openapi.yml
+  - type: Overlay
+    url: overlays/also-storefront-json-overlay.yaml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: AgenticAccess
+  url: agentic-access/also-agentic-access.yml
 - type: Website
+  url: https://ridealso.com/
+- type: DeveloperPortal
+  url: https://ridealso.com/agents.md
+- type: Documentation
+  url: https://ridealso.com/agents.md
+- type: APIReference
+  url: https://shopify.dev/docs/api/storefront
+- type: GettingStarted
+  url: https://ridealso.com/agents.md
+- type: Support
+  url: https://ridealso.com/pages/support
+- type: HelpCenter
+  url: https://ridealso.com/pages/help-center
+- type: Blog
+  url: https://ridealso.com/blogs/all
+- type: About
+  url: https://ridealso.com/pages/company
+- type: Careers
+  url: https://jobs.ashbyhq.com/Ridealso
+- type: Pricing
+  url: https://ridealso.com/products/tm-b
+- type: SignUp
+  url: https://ridealso.com/account/login
+- type: Login
+  url: https://ridealso.com/account/login
+- type: TermsOfService
+  url: https://ridealso.com/pages/terms
+- type: PrivacyPolicy
+  url: https://ridealso.com/pages/privacy
+- type: LLMsTxt
+  url: llms/also-llms.txt
+- type: AgentsMD
+  url: llms/also-agents.md
+- type: WellKnown
+  url: well-known/also-well-known.yml
+- type: Authentication
+  url: authentication/also-authentication.yml
+- type: OAuthScopes
+  url: scopes/also-scopes.yml
+- type: OpenIDConnect
+  url: well-known/also-openid-configuration.json
+- type: Conventions
+  url: conventions/also-conventions.yml
+- type: Idempotency
+  url: conventions/also-conventions.yml
+- type: RateLimits
+  url: rate-limits/also-rate-limits.yml
+- type: Conformance
+  url: conformance/also-conformance.yml
+- type: Lifecycle
+  url: lifecycle/also-lifecycle.yml
+- type: Components
+  url: components/also-components.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DomainSecurity
+  url: security/also-domain-security.yml
+- type: LinkedIn
+  url: https://www.linkedin.com/company/ridealso
+- type: YouTube
+  url: https://www.youtube.com/@ride_also
+- type: Instagram
+  url: https://www.instagram.com/ridealso
+- type: TikTok
+  url: https://www.tiktok.com/@ridealso
+- type: SecondaryMarket
   url: https://forgeglobal.com/also_stock/
+x-enrichment:
+  date: '2026-08-02'
+  status: enriched
+  artifacts_added: 20
+  pass: local-v1

@@ -1,0 +1,150 @@
+generated: '2026-08-02'
+method: derived
+source: mcp/also-mcp.yml + graphql/also-storefront-2026-07.graphql + openapi/also-storefront-json-openapi.yml
+description: Binds each UCP MCP tool ALSO exposes to its backing surface on the two
+  other contracts that are live on the same host - the Storefront GraphQL schema
+  (captured by open introspection) and the read-only JSON storefront endpoints. Because
+  live tools/list is gated on a UCP-Agent profile, tools are mapped by the UCP OpenRPC
+  method contract and by semantics, and confidence is recorded honestly.
+surfaces:
+  openapi:
+    file: openapi/also-storefront-json-openapi.yml
+    base: https://ridealso.com
+    gated: false
+    note: AE-generated from ALSO's own agents.md endpoint list; every path probed live.
+  graphql:
+    file: graphql/also-storefront-2026-07.graphql
+    endpoint: https://ridealso.com/api/2026-07/graphql.json
+    gated: false
+    note: Introspection is OPEN - no Storefront access token was required on 2026-08-02.
+  mcp:
+    file: mcp/also-mcp.yml
+    endpoint: https://ridealso.com/api/ucp/mcp
+    gated: true
+    note: tools/list returns 422 invalid_profile_url without a UCP-Agent profile URI.
+crosswalk:
+- tool: search_catalog
+  category: catalog
+  rest: [listProducts, searchStorefront]
+  graphql: [products, search, predictiveSearch]
+  binding: rest+graphql
+  confidence: high
+  note: UCP catalog search maps to the GraphQL `search`/`products` connections; the
+    JSON `/products.json` listing is the unauthenticated equivalent.
+- tool: lookup_catalog
+  category: catalog
+  rest: [getProduct]
+  graphql: [nodes, productByHandle]
+  binding: rest+graphql
+  confidence: high
+- tool: get_product
+  category: catalog
+  rest: [getProduct]
+  graphql: [product, productByHandle]
+  binding: rest+graphql
+  confidence: high
+- tool: create_cart
+  category: cart
+  rest: []
+  graphql: [cartCreate]
+  binding: graphql
+  confidence: high
+  note: No public REST write operation exists on the storefront; cart writes are GraphQL
+    mutations or the Shopify Ajax cart endpoints.
+- tool: get_cart
+  category: cart
+  rest: [getCart]
+  graphql: [cart]
+  binding: rest+graphql
+  confidence: high
+- tool: update_cart
+  category: cart
+  rest: []
+  graphql: [cartLinesAdd, cartLinesUpdate, cartLinesRemove, cartAttributesUpdate, cartNoteUpdate,
+    cartDiscountCodesUpdate, cartBuyerIdentityUpdate]
+  binding: graphql
+  confidence: medium
+  note: One UCP tool fans out to seven GraphQL cart mutations.
+- tool: cancel_cart
+  category: cart
+  rest: []
+  graphql: [cartRemovePersonalData]
+  binding: graphql
+  confidence: low
+  note: UCP cart cancellation has no exact GraphQL analogue; cartRemovePersonalData
+    is the closest teardown mutation.
+- tool: create_checkout
+  category: checkout
+  rest: []
+  graphql: [cartCreate, cartPrepareForCompletion]
+  binding: graphql
+  confidence: medium
+- tool: get_checkout
+  category: checkout
+  rest: []
+  graphql: [cart, cartCompletionAttempt]
+  binding: graphql
+  confidence: medium
+- tool: update_checkout
+  category: checkout
+  rest: []
+  graphql: [cartDeliveryAddressesUpdate, cartSelectedDeliveryOptionsUpdate, cartBillingAddressUpdate,
+    cartPaymentUpdate]
+  binding: graphql
+  confidence: medium
+- tool: complete_checkout
+  category: checkout
+  rest: []
+  graphql: [cartSubmitForCompletion, shopPayPaymentRequestSessionSubmit]
+  binding: graphql
+  confidence: medium
+  note: Both the UCP tool (meta.idempotency-key) and shopPayPaymentRequestSessionSubmit
+    (required idempotencyKey argument) enforce idempotent completion.
+- tool: cancel_checkout
+  category: checkout
+  rest: []
+  graphql: []
+  binding: none
+  confidence: low
+- tool: get_order
+  category: order
+  rest: []
+  graphql: [cartCompletionAttempt]
+  binding: graphql
+  confidence: low
+  note: Order retrieval on the Storefront API requires a customer access token; the
+    unauthenticated equivalent is the completion attempt result.
+mcp_only:
+- tool: cancel_checkout
+  reason: No public REST operation and no direct GraphQL mutation on the Storefront
+    API; handled server-side by the UCP checkout state machine.
+- tool: get_order
+  reason: Order reads are behind the customer account token on the Storefront API;
+    UCP exposes them through the agent's own checkout session.
+rest_only:
+- capability: collections
+  operations: [listCollections, listCollectionProducts]
+  reason: UCP shopping has no collection-browsing tool; collections are only reachable
+    over REST/GraphQL.
+graphql_only:
+- capability: customer accounts
+  fields: [customerCreate, customerAccessTokenCreate, customerAccessTokenRenew, customerAccessTokenDelete,
+    customerUpdate, customerRecover, customerReset, customerActivate, customerAddressCreate,
+    customerAddressUpdate, customerAddressDelete, customerDefaultAddressUpdate]
+  reason: Account lifecycle is out of scope for UCP shopping.
+- capability: content
+  fields: [blog, blogs, article, articles, page, pages, menu, metaobject, metaobjects]
+  reason: Editorial and navigation content is GraphQL-only.
+- capability: merchandising
+  fields: [productRecommendations, productTags, productTypes, localization, shopPayInstallmentsPricing,
+    urlRedirects, sitemap]
+  reason: Storefront merchandising helpers with no UCP tool.
+coverage:
+  tools_named: 13
+  tools_bound: 12
+  tools_unbound: 1
+  mcp_only: 2
+  rest_operations_total: 6
+  rest_operations_with_tool: 4
+  graphql_queries_total: 35
+  graphql_mutations_total: 41

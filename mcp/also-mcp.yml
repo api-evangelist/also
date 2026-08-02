@@ -1,0 +1,71 @@
+generated: '2026-08-02'
+method: searched
+status: published
+source: https://ridealso.com/.well-known/ucp
+server:
+  name: also-ucp-shopping
+  transport: http
+  protocol: MCP (JSON-RPC 2.0) via the Universal Commerce Protocol
+  url: https://ridealso.com/api/ucp/mcp
+  canonical_url: https://ride-also.myshopify.com/api/ucp/mcp
+  advertised_in:
+  - https://ridealso.com/.well-known/ucp
+  - https://ridealso.com/agents.md
+  - https://ridealso.com/llms.txt
+ucp:
+  version: '2026-04-08'
+  supported_versions: ['2026-04-08', '2026-01-23']
+  service: dev.ucp.shopping
+  schema: https://ucp.dev/2026-04-08/services/shopping/mcp.openrpc.json
+  capabilities:
+  - dev.ucp.shopping.cart
+  - dev.ucp.shopping.checkout
+  - dev.ucp.shopping.fulfillment
+  - dev.ucp.shopping.discount
+  - dev.ucp.shopping.order
+  - dev.ucp.shopping.catalog.search
+  - dev.ucp.shopping.catalog.lookup
+  - dev.shopify.catalog
+  payment_handlers:
+  - {id: gpay, family: com.google.pay, version: '2026-01-11'}
+  - {id: shopify.card, family: dev.shopify.card, version: '2026-01-15'}
+  - {id: shop_pay, family: dev.shopify.shop_pay, version: '2026-04-08'}
+introspection:
+  attempted: true
+  method: 'POST {"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+  http_status: 422
+  gated: true
+  error: 'UCP discovery failed - invalid_profile_url: Unable to fetch agent profile:
+    Missing profile uri'
+  reason: The UCP `meta.ucp-agent.profile` member (HTTP `UCP-Agent` header) is REQUIRED
+    on every call. A calling agent must publish its own UCP profile document before
+    the server will return tools. Live inputSchema capture therefore requires an
+    agent profile - the tool list below is taken from the UCP OpenRPC schema this
+    store declares in its own discovery document, not invented.
+tools:
+- {name: search_catalog, description: Search for products in the catalog, params: [meta, catalog], source: ucp-openrpc}
+- {name: lookup_catalog, description: Batch lookup products or variants by identifier, params: [meta, catalog], source: ucp-openrpc}
+- {name: get_product, description: Get product details, params: [meta, catalog], source: ucp-openrpc}
+- {name: create_cart, description: Create a cart, params: [meta, cart], source: ucp-openrpc}
+- {name: get_cart, description: Get cart, params: [meta, id], source: ucp-openrpc}
+- {name: update_cart, description: Update cart, params: [meta, id, cart], source: ucp-openrpc}
+- {name: cancel_cart, description: Cancel cart, params: [meta, id], source: ucp-openrpc}
+- {name: create_checkout, description: Create a checkout, params: [meta, checkout], source: ucp-openrpc}
+- {name: get_checkout, description: Get checkout, params: [meta, id], source: ucp-openrpc}
+- {name: update_checkout, description: Update checkout, params: [meta, id, checkout], source: ucp-openrpc}
+- {name: complete_checkout, description: Complete checkout and place order, params: [meta, id, checkout], source: ucp-openrpc}
+- {name: cancel_checkout, description: Cancel checkout, params: [meta, id], source: ucp-openrpc}
+- {name: get_order, description: Get order, params: [meta, id], source: ucp-openrpc}
+constraints:
+  human_approval_required: true
+  note: ALSO's agents.md states "Checkout requires human approval. Agents must not
+    complete payment without explicit buyer consent."
+  rate_limited: true
+  rate_limit_note: The MCP endpoint is rate-limited per IP; back off on 429.
+  idempotency: meta.idempotency-key (maps to the HTTP Idempotency-Key header)
+x-evidence:
+  fetched: '2026-08-02'
+  discovery_url: https://ridealso.com/.well-known/ucp
+  discovery_status: 200
+  tools_list_url: https://ridealso.com/api/ucp/mcp
+  tools_list_status: 422

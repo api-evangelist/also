@@ -1,0 +1,52 @@
+generated: '2026-08-02'
+method: searched
+source: live publicApiVersions query against https://ridealso.com/api/2026-07/graphql.json
+  + https://ridealso.com/.well-known/ucp
+versioning:
+- api: ALSO Storefront GraphQL API
+  scheme: dated-uri-path
+  pattern: /api/{YYYY-MM}/graphql.json
+  current: '2026-07'
+  discovery: 'GraphQL query: { publicApiVersions { handle supported displayName } }'
+  versions:
+  - {handle: '2025-10', supported: true}
+  - {handle: '2026-01', supported: true}
+  - {handle: '2026-04', supported: true}
+  - {handle: '2026-07', supported: true, latest: true}
+  - {handle: '2026-10', supported: false, note: release candidate}
+  - {handle: unstable, supported: false}
+  observed: '2026-08-02'
+- api: ALSO UCP Commerce MCP API
+  scheme: dated-version-identifier
+  current: '2026-04-08'
+  supported: ['2026-04-08', '2026-01-23']
+  discovery: https://ridealso.com/.well-known/ucp
+deprecation:
+  policy_url: null
+  sunset_header: false
+  published_by_provider: false
+  signal: 'The GraphQL version list marks older/newer handles `supported: false`, and
+    the schema carries @deprecated directives on individual fields, but ALSO publishes
+    no deprecation or sunset policy of its own. The versioning cadence is inherited
+    from the Shopify platform.'
+sla:
+  url: null
+  uptime_target: null
+status_page: null
+status_page_note: No status.ridealso.com host resolves and no status page is linked
+  from the site; DNS lookups for status/support/help/api/docs/developer/trust subdomains
+  all failed.
+support:
+  help_center: https://ridealso.com/pages/help-center
+  support: https://ridealso.com/pages/support
+  service_and_assembly: https://ridealso.com/pages/service-and-assembly
+  returns: https://ridealso.com/pages/returns
+  media_contact: media@ridealso.com
+company:
+  founded: '2025-03'
+  origin: spun out of Rivian Automotive
+  headquarters: Palo Alto, California, United States
+  additional_sites: [Seattle WA (customer experience and commerce), Taichung City Taiwan
+      (supply management and logistics)]
+  source: https://ridealso.com/pages/company
+deprecated_operations: []
