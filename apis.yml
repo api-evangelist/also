@@ -32,11 +32,11 @@ tags:
 - Delivery
 apis:
 - name: ALSO Storefront GraphQL API
-  description: The Shopify Storefront GraphQL API served on ALSO's own domain. Open,
-    unauthenticated introspection was confirmed; 35 root queries (products, collections,
-    cart, search, blogs, shop, localization) and 41 mutations (cart lifecycle, customer
-    accounts, Shop Pay payment request sessions) are live. Dated API versions are published
-    via the publicApiVersions query.
+  description: >-
+    The Shopify Storefront GraphQL API served on ALSO's own domain. Open, unauthenticated introspection
+    was confirmed; 35 root queries (products, collections, cart, search, blogs, shop, localization) and
+    41 mutations (cart lifecycle, customer accounts, Shop Pay payment request sessions) are live. Dated
+    API versions are published via the publicApiVersions query.
   humanURL: https://ridealso.com/agents.md
   baseURL: https://ridealso.com/api/2026-07/graphql.json
   tags:
@@ -55,11 +55,11 @@ apis:
   - type: ErrorCatalog
     url: errors/also-problem-types.yml
 - name: ALSO UCP Commerce MCP API
-  description: ALSO's Universal Commerce Protocol (UCP) endpoint, advertised in its
-    own /.well-known/ucp discovery profile and /agents.md. Exposes the dev.ucp.shopping
-    service over MCP transport for agent-driven catalog search, cart, checkout, fulfillment,
-    discount and order capabilities, with Google Pay, Shopify card and Shop Pay payment
-    handlers. tools/list is gated on a UCP-Agent profile URI.
+  description: >-
+    ALSO's Universal Commerce Protocol (UCP) endpoint, advertised in its own /.well-known/ucp discovery
+    profile and /agents.md. Exposes the dev.ucp.shopping service over MCP transport for agent-driven catalog
+    search, cart, checkout, fulfillment, discount and order capabilities, with Google Pay, Shopify card
+    and Shop Pay payment handlers. tools/list is gated on a UCP-Agent profile URI.
   humanURL: https://ridealso.com/agents.md
   baseURL: https://ridealso.com/api/ucp/mcp
   tags:
@@ -74,29 +74,54 @@ apis:
     url: mcp/also-tool-crosswalk.yml
   - type: Documentation
     url: https://ridealso.com/agents.md
-- name: ALSO Storefront JSON API
-  description: The read-only JSON storefront endpoints ALSO documents for agents in
-    its own agents.md - product and collection listings, per-product and per-collection
-    JSON, storefront search, and the live cart resource. Every path in the captured
-    OpenAPI was probed live against ridealso.com.
+- aid: also:also-cart-api
+  name: Also Cart API
+  description: The current session cart.
   humanURL: https://ridealso.com/agents.md
-  baseURL: https://ridealso.com
+  baseURL: https://ridealso.com/api/2026-07/graphql.json
   tags:
-  - REST
-  - JSON
-  - Catalog
-  - E-Commerce
+  - Cart
   properties:
   - type: OpenAPI
-    url: openapi/also-storefront-json-openapi.yml
-  - type: Overlay
-    url: overlays/also-storefront-json-overlay.yaml
+    url: openapi/also-cart-api-openapi.yml
+- aid: also:also-collections-api
+  name: Also Collections API
+  description: Collection listings and the products within a collection.
+  humanURL: https://ridealso.com/agents.md
+  baseURL: https://ridealso.com/api/2026-07/graphql.json
+  tags:
+  - Collections
+  properties:
+  - type: OpenAPI
+    url: openapi/also-collections-api-openapi.yml
+- aid: also:also-products-api
+  name: Also Products API
+  description: Product catalog listings and per-product detail.
+  humanURL: https://ridealso.com/agents.md
+  baseURL: https://ridealso.com/api/2026-07/graphql.json
+  tags:
+  - Products
+  properties:
+  - type: OpenAPI
+    url: openapi/also-products-api-openapi.yml
+- aid: also:also-search-api
+  name: Also Search API
+  description: Storefront search.
+  humanURL: https://ridealso.com/agents.md
+  baseURL: https://ridealso.com/api/2026-07/graphql.json
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/also-search-api-openapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Overlay
+  url: overlays/also-storefront-json-overlay.yaml
 - type: AgenticAccess
   url: agentic-access/also-agentic-access.yml
 - type: Website
