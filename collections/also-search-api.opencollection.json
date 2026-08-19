@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ALSO Storefront JSON Search API",
+    "version": "2026-08-02"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search the storefront",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ridealso.com/search",
+            "params": [
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "The search query."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Resource type to search."
+              }
+            ]
+          },
+          "docs": "Storefront search. Returns an HTML results page, not JSON - listed here because ALSO advertises it to agents in agents.md."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

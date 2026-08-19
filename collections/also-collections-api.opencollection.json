@@ -1,0 +1,58 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ALSO Storefront JSON Collections API",
+    "version": "2026-08-02"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Collections",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all published collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ridealso.com/collections.json"
+          },
+          "docs": "List all published collections"
+        },
+        {
+          "info": {
+            "name": "List the products in a collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ridealso.com/collections/:handle/products.json",
+            "params": [
+              {
+                "name": "handle",
+                "value": "gear",
+                "type": "path",
+                "description": "The collection handle, e.g. `gear`."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the published products in a collection. Note - an unknown collection handle was observed returning HTTP 200 with an empty product list rather than 404."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

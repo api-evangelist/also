@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ALSO Storefront JSON Products API",
+    "version": "2026-08-02"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Products",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all published products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ridealso.com/products.json",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of products to return per page."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination."
+              }
+            ]
+          },
+          "docs": "Returns every published product on the storefront. Observed 23 products on 2026-08-02."
+        },
+        {
+          "info": {
+            "name": "Get one product by handle",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ridealso.com/products/:handle.json",
+            "params": [
+              {
+                "name": "handle",
+                "value": "tm-b",
+                "type": "path",
+                "description": "The product handle, e.g. `tm-b`."
+              }
+            ]
+          },
+          "docs": "Get one product by handle"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

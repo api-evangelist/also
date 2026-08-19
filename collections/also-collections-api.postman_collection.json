@@ -1,0 +1,209 @@
+{
+  "item": [
+    {
+      "id": "5887f96a-9348-4246-a9fe-032df51009bb",
+      "name": "Collections",
+      "description": {
+        "content": "Collection listings and the products within a collection.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "211f5d97-49f7-4dff-bdc5-67ca9b9f7b7f",
+          "name": "List all published collections",
+          "request": {
+            "name": "List all published collections",
+            "description": {},
+            "url": {
+              "path": [
+                "collections.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ffe4fb7e-0652-4535-811e-f449995c3c5f",
+              "name": "A list of published collections.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collections.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"collections\": [\n    {\n      \"id\": 9682,\n      \"title\": \"string\",\n      \"handle\": \"string\",\n      \"description\": \"string\",\n      \"image\": {\n        \"id\": 2614,\n        \"product_id\": 376,\n        \"variant_ids\": [\n          655,\n          1915\n        ],\n        \"src\": \"http://VDZGJhsNuLxzbsrhCyXD.ntkcbWlhMK9sgwxhMd7vDxi\",\n        \"width\": 3742,\n        \"height\": 7971,\n        \"position\": 947,\n        \"created_at\": \"2012-01-01T21:00:22.073Z\",\n        \"updated_at\": \"1958-07-07T17:36:56.454Z\"\n      },\n      \"products_count\": 9613,\n      \"published_at\": \"1983-03-15T15:20:54.716Z\",\n      \"updated_at\": \"2025-06-21T00:26:42.968Z\"\n    },\n    {\n      \"id\": 8128,\n      \"title\": \"string\",\n      \"handle\": \"string\",\n      \"description\": \"string\",\n      \"image\": {\n        \"id\": 6870,\n        \"product_id\": 2705,\n        \"variant_ids\": [\n          5658,\n          4031\n        ],\n        \"src\": \"http://LiuVJikJBMVfLbLsokRHGGmkuUFv.bzdctTCkFc\",\n        \"width\": 208,\n        \"height\": 4679,\n        \"position\": 5514,\n        \"created_at\": \"2026-03-17T04:00:41.684Z\",\n        \"updated_at\": \"1961-09-06T22:41:37.201Z\"\n      },\n      \"products_count\": 6242,\n      \"published_at\": \"1952-10-24T03:56:57.929Z\",\n      \"updated_at\": \"1999-02-12T05:23:38.634Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c941ed97-64e3-4386-a0a2-b07d8cb71c67",
+          "name": "List the products in a collection",
+          "request": {
+            "name": "List the products in a collection",
+            "description": {
+              "content": "Returns the published products in a collection. Note - an unknown collection handle was observed returning HTTP 200 with an empty product list rather than 404.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "collections",
+                ":handle",
+                "products.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "handle",
+                  "description": "(Required) The collection handle, e.g. `gear`."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d17541ad-2aef-41b5-9817-7e6ec4a2f726",
+              "name": "The products in the collection.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collections",
+                    ":handle",
+                    "products.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "handle",
+                      "description": "(Required) The collection handle, e.g. `gear`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"products\": [\n    {\n      \"id\": 3538,\n      \"title\": \"string\",\n      \"handle\": \"string\",\n      \"body_html\": \"string\",\n      \"published_at\": \"1949-02-07T14:08:51.010Z\",\n      \"created_at\": \"2022-11-14T00:15:24.554Z\",\n      \"updated_at\": \"2012-06-14T23:24:02.812Z\",\n      \"vendor\": \"string\",\n      \"product_type\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"variants\": [\n        {\n          \"id\": 4664,\n          \"product_id\": 1921,\n          \"title\": \"string\",\n          \"option1\": \"string\",\n          \"option2\": null,\n          \"option3\": \"string\",\n          \"sku\": \"string\",\n          \"requires_shipping\": true,\n          \"taxable\": false,\n          \"featured_image\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"product_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"variant_ids\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"src\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"width\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"height\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"position\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"created_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updated_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"available\": false,\n          \"price\": \"string\",\n          \"compare_at_price\": \"string\",\n          \"grams\": 8332,\n          \"position\": 5630,\n          \"created_at\": \"1997-07-27T22:57:17.394Z\",\n          \"updated_at\": \"1961-09-22T13:17:43.307Z\"\n        },\n        {\n          \"id\": 8569,\n          \"product_id\": 1170,\n          \"title\": \"string\",\n          \"option1\": null,\n          \"option2\": null,\n          \"option3\": \"string\",\n          \"sku\": null,\n          \"requires_shipping\": true,\n          \"taxable\": true,\n          \"featured_image\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"product_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"variant_ids\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"src\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"width\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"height\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"position\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"created_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updated_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"available\": false,\n          \"price\": \"string\",\n          \"compare_at_price\": \"string\",\n          \"grams\": 764,\n          \"position\": 4200,\n          \"created_at\": \"2014-10-12T11:42:36.623Z\",\n          \"updated_at\": \"2025-09-11T16:01:13.998Z\"\n        }\n      ],\n      \"images\": [\n        {\n          \"id\": 6439,\n          \"product_id\": 9329,\n          \"variant_ids\": [\n            9623,\n            1886\n          ],\n          \"src\": \"https://QbReKyZIIZrwiqMyMY.vkoI8h5ng2xJ9JBZfXsXmcgU\",\n          \"width\": 2825,\n          \"height\": 3366,\n          \"position\": 918,\n          \"created_at\": \"2025-10-25T08:17:10.057Z\",\n          \"updated_at\": \"1951-05-20T03:38:40.897Z\"\n        },\n        {\n          \"id\": 6820,\n          \"product_id\": 7367,\n          \"variant_ids\": [\n            4363,\n            9617\n          ],\n          \"src\": \"http://jCeagam.lxjYh69SjuZfbXLpBYNVx8\",\n          \"width\": 4439,\n          \"height\": 4986,\n          \"position\": 2875,\n          \"created_at\": \"2010-09-27T23:28:48.394Z\",\n          \"updated_at\": \"1968-06-13T06:09:57.170Z\"\n        }\n      ],\n      \"options\": [\n        {\n          \"name\": \"string\",\n          \"position\": 5285,\n          \"values\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"name\": \"string\",\n          \"position\": 5771,\n          \"values\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ]\n    },\n    {\n      \"id\": 7751,\n      \"title\": \"string\",\n      \"handle\": \"string\",\n      \"body_html\": \"string\",\n      \"published_at\": \"2006-10-29T17:54:45.320Z\",\n      \"created_at\": \"1986-12-30T13:55:43.239Z\",\n      \"updated_at\": \"2009-11-30T11:52:47.873Z\",\n      \"vendor\": \"string\",\n      \"product_type\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"variants\": [\n        {\n          \"id\": 1373,\n          \"product_id\": 2481,\n          \"title\": \"string\",\n          \"option1\": null,\n          \"option2\": null,\n          \"option3\": null,\n          \"sku\": null,\n          \"requires_shipping\": true,\n          \"taxable\": true,\n          \"featured_image\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"product_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"variant_ids\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"src\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"width\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"height\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"position\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"created_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updated_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"available\": false,\n          \"price\": \"string\",\n          \"compare_at_price\": null,\n          \"grams\": 8317,\n          \"position\": 2964,\n          \"created_at\": \"2005-12-01T05:22:20.008Z\",\n          \"updated_at\": \"1983-02-27T08:02:46.980Z\"\n        },\n        {\n          \"id\": 2864,\n          \"product_id\": 6224,\n          \"title\": \"string\",\n          \"option1\": \"string\",\n          \"option2\": null,\n          \"option3\": null,\n          \"sku\": null,\n          \"requires_shipping\": true,\n          \"taxable\": false,\n          \"featured_image\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"product_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"variant_ids\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"src\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"width\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"height\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"position\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"created_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updated_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"available\": false,\n          \"price\": \"string\",\n          \"compare_at_price\": \"string\",\n          \"grams\": 1477,\n          \"position\": 1097,\n          \"created_at\": \"2021-07-20T21:44:41.423Z\",\n          \"updated_at\": \"1964-09-06T19:30:06.718Z\"\n        }\n      ],\n      \"images\": [\n        {\n          \"id\": 1146,\n          \"product_id\": 3338,\n          \"variant_ids\": [\n            6821,\n            2235\n          ],\n          \"src\": \"https://LrFunUhCACEVTVCr.gincF7.QLWUygYLON0YsA1hATiXJZUBfCx\",\n          \"width\": 4688,\n          \"height\": 8036,\n          \"position\": 8579,\n          \"created_at\": \"1985-10-26T05:07:46.712Z\",\n          \"updated_at\": \"2015-03-04T03:48:35.259Z\"\n        },\n        {\n          \"id\": 7675,\n          \"product_id\": 5252,\n          \"variant_ids\": [\n            1732,\n            6469\n          ],\n          \"src\": \"https://XZKYbh.kqmGV\",\n          \"width\": 9651,\n          \"height\": 8302,\n          \"position\": 8632,\n          \"created_at\": \"1961-11-02T05:36:44.602Z\",\n          \"updated_at\": \"1961-05-22T15:50:58.586Z\"\n        }\n      ],\n      \"options\": [\n        {\n          \"name\": \"string\",\n          \"position\": 893,\n          \"values\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"name\": \"string\",\n          \"position\": 1304,\n          \"values\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://ridealso.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "337c9264-8d1d-4cf1-a549-2fd1b62ca059",
+    "name": "ALSO Storefront JSON Collections API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "ALSO does not publish an OpenAPI document. This description was **generated by API Evangelist**\nfrom the read-only endpoints ALSO itself enumerates for agents in its published\n`/agents.md` (mirrored at `/llms.txt`), and every path below was probed live against\n`https://ridealso.com` on 2026-08-02 with the observed HTTP status recorded in\n`x-evidence`. Schemas were derived from the actual response bodies returned by those\nprobes - no field is asserted that was not observed.\n\nThis is an AE-generated contract for a real, callable surface. It is **not** a document\npublished or endorsed by ALSO. The provider's own machine-readable contracts are the\nStorefront GraphQL schema (`graphql/also-storefront-2026-07.graphql`, captured by open\nintrospection) and the UCP profile at `/.well-known/ucp`.\n\n\nContact Support:\n Name: ALSO Media\n Email: media@ridealso.com",
+      "type": "text/plain"
+    }
+  }
+}

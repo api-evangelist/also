@@ -1,0 +1,26 @@
+{
+  "provider": "also",
+  "sources": [
+    "also-cart-api-openapi.yml",
+    "also-collections-api-openapi.yml",
+    "also-products-api-openapi.yml",
+    "also-search-api-openapi.yml"
+  ],
+  "outputs": [
+    "also-cart-api-openapi.yml",
+    "also-collections-api-openapi.yml",
+    "also-products-api-openapi.yml",
+    "also-search-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "also-cart-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "also-collections-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "also-products-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "also-search-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": []
+}
