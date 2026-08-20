@@ -90,6 +90,8 @@ apis:
   humanURL: https://ridealso.com/agents.md
   baseURL: https://ridealso.com/api/2026-07/graphql.json
   tags:
+  - Collection
+  tags_raw:
   - Collections
   properties:
   - type: OpenAPI
@@ -100,6 +102,8 @@ apis:
   humanURL: https://ridealso.com/agents.md
   baseURL: https://ridealso.com/api/2026-07/graphql.json
   tags:
+  - Product
+  tags_raw:
   - Products
   properties:
   - type: OpenAPI
