@@ -11,6 +11,18 @@ description: 'ALSO (Also, Inc.) is a Palo Alto, California electric micromobilit
   GraphQL API (35 queries / 41 mutations), the Shopify JSON storefront endpoints, and
   a Universal Commerce Protocol (UCP) MCP endpoint for agent-driven shopping and checkout,
   all advertised in the company''s own published agents.md / llms.txt.'
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://cdn.shopify.com/s/files/1/0747/5878/3200/files/Social_Share.jpg?v=1760978876
 url: https://raw.githubusercontent.com/api-evangelist/also/refs/heads/main/apis.yml
 x-type: company
