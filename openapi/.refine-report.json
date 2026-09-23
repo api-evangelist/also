@@ -1,10 +1,7 @@
 {
   "provider": "also",
   "sources": [
-    "also-cart-api-openapi.yml",
-    "also-collections-api-openapi.yml",
-    "also-products-api-openapi.yml",
-    "also-search-api-openapi.yml"
+    "_original/also-storefront-json-openapi.yml"
   ],
   "outputs": [
     "also-cart-api-openapi.yml",
@@ -16,11 +13,14 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "also-cart-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "also-collections-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "also-products-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "also-search-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "also-storefront-json-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "also-cart-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "also-collections-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "also-products-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "also-search-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
