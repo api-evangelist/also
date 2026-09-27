@@ -81,6 +81,9 @@ apis:
     url: data-model/also-data-model.yml
   - type: ErrorCatalog
     url: errors/also-problem-types.yml
+  x-surface: platform-generated
+  x-platform: shopify
+  x-platform-surface: storefront-graphql
 - name: ALSO UCP Commerce MCP API
   description: >-
     ALSO's Universal Commerce Protocol (UCP) endpoint, advertised in its own /.well-known/ucp discovery
@@ -106,50 +109,9 @@ apis:
     url: mcp/also-tool-crosswalk.yml
   - type: Documentation
     url: https://ridealso.com/agents.md
-- aid: also:also-cart-api
-  name: Also Cart API
-  description: The current session cart.
-  humanURL: https://ridealso.com/agents.md
-  baseURL: https://ridealso.com/api/2026-07/graphql.json
-  tags:
-  - Cart
-  properties:
-  - type: OpenAPI
-    url: openapi/also-cart-api-openapi.yml
-- aid: also:also-collections-api
-  name: Also Collections API
-  description: Collection listings and the products within a collection.
-  humanURL: https://ridealso.com/agents.md
-  baseURL: https://ridealso.com/api/2026-07/graphql.json
-  tags:
-  - Collection
-  tags_raw:
-  - Collections
-  properties:
-  - type: OpenAPI
-    url: openapi/also-collections-api-openapi.yml
-- aid: also:also-products-api
-  name: Also Products API
-  description: Product catalog listings and per-product detail.
-  humanURL: https://ridealso.com/agents.md
-  baseURL: https://ridealso.com/api/2026-07/graphql.json
-  tags:
-  - Product
-  tags_raw:
-  - Products
-  properties:
-  - type: OpenAPI
-    url: openapi/also-products-api-openapi.yml
-- aid: also:also-search-api
-  name: Also Search API
-  description: Storefront search.
-  humanURL: https://ridealso.com/agents.md
-  baseURL: https://ridealso.com/api/2026-07/graphql.json
-  tags:
-  - Search
-  properties:
-  - type: OpenAPI
-    url: openapi/also-search-api-openapi.yml
+  x-surface: platform-generated
+  x-platform: shopify
+  x-platform-surface: ucp
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
