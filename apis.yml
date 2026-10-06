@@ -46,7 +46,7 @@ x-tier: profiled
 x-tier-reason: enrichment
 specificationVersion: '0.23'
 created: '2026-08-02'
-modified: '2026-08-02'
+modified: '2026-10-06'
 tags:
 - Company
 - Micromobility
@@ -118,6 +118,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- url: https://ridealso.com/blogs/all.atom
+  type: BlogRSS
 - type: Overlay
   url: overlays/also-storefront-json-overlay.yaml
 - type: AgenticAccess
